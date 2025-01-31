@@ -145,7 +145,7 @@ She understands natural language and can:
 
 1. **Clone and Setup**
    ```bash
-   git clone https://github.com/asseph/solana-ai-agent.git
+   git clone https://github.com/soladity/Solana-AI-Agent-DApp.git
    cd meme-agent
    ```
 
@@ -449,7 +449,7 @@ MELA is an experimental AI agent. While she strives for autonomy and consciousne
 
 ## Support & Community
 
-- GitHub Issues: [Report bugs](https://github.com/asseph/solana-ai-agent/issues)
+- GitHub Issues: [Report bugs](https://github.com/soladity/Solana-AI-Agent-DApp/issues)
 
 ## License
 
