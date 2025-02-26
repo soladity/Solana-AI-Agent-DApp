@@ -1,4 +1,4 @@
-# Privy Auth `create-next-app` Starter
+# Solana AI Agent for Asset management
 
 This is a template for integrating [**Privy Auth**](https://www.privy.io/) into a [NextJS](https://nextjs.org/) project. Check out the deployed app [here](https://create-next-app.privy.io/)!
 
@@ -8,7 +8,7 @@ This demo uses NextJS's [Pages Router](https://nextjs.org/docs/pages/building-yo
 
 1. Clone this repository and open it in your terminal. 
 ```sh
-git clone https://github.com/privy-io/create-next-app
+git clone https://github.com/soladity/Solana-AI-Agent-DApp
 ```
 
 2. Install the necessary dependencies (including [Privy Auth](https://www.npmjs.com/package/@privy-io/react-auth)) with `npm`.
@@ -27,13 +27,6 @@ NEXT_PUBLIC_PRIVY_APP_ID=<your-privy-app-id>
 
 ## Building locally
 
-In your project directory, run `npm run dev`. You can now visit http://localhost:3000 to see your app and login with Privy!
+In your project directory, run `npm run dev`. You can now visit http://localhost:3000 to see your app and interact with Agent!
 
 
-## Check out:
-- `pages/_app.tsx` for how to use the `PrivyProvider` and initialize it with your Privy App ID
-- `pages/index.tsx` for how to use the `usePrivy` hook and implement a simple `login` button
-- `pages/dashboard.tsx` for how to use the `usePrivy` hook, fields like `ready`, `authenticated`, and `user`, and methods like `linkWallet` and `logout`
-
-
-**Check out [our docs](https://docs.privy.io/) for more guidance around using Privy in your app!**
