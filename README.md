@@ -1,8 +1,6 @@
 # Solana AI Agent for Asset management
 
-This is a template for integrating [**Privy Auth**](https://www.privy.io/) into a [NextJS](https://nextjs.org/) project. Check out the deployed app [here](https://create-next-app.privy.io/)!
-
-This demo uses NextJS's [Pages Router](https://nextjs.org/docs/pages/building-your-application/routing). If you'd like to see an example using the [App Router](https://nextjs.org/docs/app), just change the branch of this repository to [`app-router`](https://github.com/privy-io/create-next-app/tree/app-router). 
+This is a AI agents on Solana blockchain where users can interact with it to send, swap, mint, airdrop assets. 
 
 ## Setup
 
