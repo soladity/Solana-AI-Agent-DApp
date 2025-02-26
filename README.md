@@ -9,12 +9,12 @@ This is a AI agents on Solana blockchain where users can interact with it to sen
 git clone https://github.com/soladity/Solana-AI-Agent-DApp
 ```
 
-2. Install the necessary dependencies (including [Privy Auth](https://www.npmjs.com/package/@privy-io/react-auth)) with `npm`.
+2. Install the necessary dependencies with `npm`.
 ```sh
 npm i 
 ```
 
-3. Initialize your environment variables by copying the `.env.example` file to an `.env.local` file. Then, in `.env.local`, [paste your Privy App ID from the dashboard](https://docs.privy.io/guide/dashboard/api-keys).
+3. Initialize your environment variables by copying the `.env.example` file to an `.env.local` file. Then, in `.env.local`
 ```sh
 # In your terminal, create .env.local from .env.example
 cp .env.example .env.local
