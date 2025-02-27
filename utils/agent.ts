@@ -10,23 +10,22 @@ const llm = new ChatOpenAI({
 });
 
 
-export const agent = () => {
-    const solanaAgent = new SolanaAgentKit(
-        process.env.SOLANA_PRIVATE_KEY!,
-        process.env.RPC_URL,
-        process.env.OPENAI_API_KEY!,
-    );
-      
-    
-      
-    const tools = createSolanaTools(solanaAgent);
-    const memory1 = new MemorySaver();
-    return createReactAgent({
-        llm,
-        tools,
-        checkpointSaver: memory1,
-        messageModifier: `
-            this is solana ai agent.
-          `,
-      });  
-} 
+
+const solanaAgent = new SolanaAgentKit(
+    process.env.SOLANA_PRIVATE_KEY!,
+    process.env.RPC_URL,
+    process.env.OPENAI_API_KEY!,
+);
+  
+
+  
+const tools = createSolanaTools(solanaAgent);
+const memory1 = new MemorySaver();
+export const agent = createReactAgent({
+  llm,
+  tools,
+  checkpointSaver: memory1,
+  messageModifier: `
+      this is solana ai agent.
+    `,
+});  
