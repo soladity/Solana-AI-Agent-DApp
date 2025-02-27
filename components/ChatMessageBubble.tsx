@@ -1,4 +1,4 @@
-import markdownToHtml from "@/utils/markdownToHTML";
+import markdownToHtml from "../utils/markdownToHTML";
 import type { Message } from "ai/react";
 import { useMemo } from "react";
 

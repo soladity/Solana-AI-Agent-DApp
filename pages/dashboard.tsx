@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getAccessToken, usePrivy } from "@privy-io/react-auth";
 import Head from "next/head";
+import { ChatWindow } from "../components/ChatWindow";
 
 async function verifyToken() {
   const url = "/api/verify";
@@ -14,6 +15,16 @@ async function verifyToken() {
 
   return await result.json();
 }
+
+
+const InfoCard = (
+  <div className="p-4 md:p-8 rounded bg-[#25252d] w-full max-h-[85%] overflow-hidden">
+    <h1 className="text-3xl md:text-4xl mb-4 text-white">
+      Send message to AI Agent
+    </h1>
+  </div>
+);
+
 
 export default function DashboardPage() {
   const [verifyResult, setVerifyResult] = useState();
@@ -43,12 +54,19 @@ export default function DashboardPage() {
           <>
             <div className="flex flex-row justify-between">
               <h1 className="text-2xl font-semibold">Chat with Solana AI Agent</h1>
-              <button
-                onClick={logout}
-                className="text-sm bg-violet-200 hover:text-violet-900 py-2 px-4 rounded-md text-violet-700"
-              >
-                Logout
-              </button>
+              <div className="flex flex-row items-center">
+                <button
+                  className="text-sm bg-violet-200 hover:text-violet-900 py-2 px-4 rounded-md text-violet-700 mr-4"
+                >
+                  {user?.linkedAccounts[0]?.username}
+                </button>
+                <button
+                  onClick={logout}
+                  className="text-sm bg-violet-200 hover:text-violet-900 py-2 px-4 rounded-md text-violet-700"
+                >
+                  Logout
+                </button>
+              </div>
             </div>
             
               {/* {twitterSubject ? (
@@ -90,13 +108,13 @@ export default function DashboardPage() {
                   </pre>
                 </details>
               )}
-
-            <p className="mt-6 font-bold uppercase text-sm text-gray-600">
-              User object
-            </p>
-            <pre className="max-w-4xl bg-slate-700 text-slate-50 font-mono p-4 text-xs sm:text-sm rounded-md mt-2">
-              {JSON.stringify(user, null, 2)}
-            </pre>
+            <ChatWindow
+              endpoint="api/chat"
+              emoji="🤖"
+              titleText="Solana agent"
+              placeholder="Ask me anything!"
+              emptyStateComponent={InfoCard}
+            ></ChatWindow>
           </>
         ) : null}
       </main>
