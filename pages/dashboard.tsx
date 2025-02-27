@@ -1,20 +1,20 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { getAccessToken, usePrivy } from "@privy-io/react-auth";
+import { useEffect } from "react";
+import { usePrivy } from "@privy-io/react-auth";
 import Head from "next/head";
 import { ChatWindow } from "../components/ChatWindow";
 
-async function verifyToken() {
-  const url = "/api/verify";
-  const accessToken = await getAccessToken();
-  const result = await fetch(url, {
-    headers: {
-      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined),
-    },
-  });
+// async function verifyToken() {
+//   const url = "/api/verify";
+//   const accessToken = await getAccessToken();
+//   const result = await fetch(url, {
+//     headers: {
+//       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined),
+//     },
+//   });
 
-  return await result.json();
-}
+//   return await result.json();
+// }
 
 
 const InfoCard = (
@@ -27,12 +27,12 @@ const InfoCard = (
 
 
 export default function DashboardPage() {
-  const [verifyResult, setVerifyResult] = useState();
+  // const [verifyResult, setVerifyResult] = useState();
   const router = useRouter();
   const {
     ready,
     authenticated,
-    user,
+    // user,
     logout
   } = usePrivy();
 
@@ -55,11 +55,11 @@ export default function DashboardPage() {
             <div className="flex flex-row justify-between">
               <h1 className="text-2xl font-semibold">Chat with Solana AI Agent</h1>
               <div className="flex flex-row items-center">
-                <button
+                {/* <button
                   className="text-sm bg-violet-200 hover:text-violet-900 py-2 px-4 rounded-md text-violet-700 mr-4"
                 >
                   {user?.linkedAccounts[0]?.username}
-                </button>
+                </button> */}
                 <button
                   onClick={logout}
                   className="text-sm bg-violet-200 hover:text-violet-900 py-2 px-4 rounded-md text-violet-700"
@@ -98,7 +98,7 @@ export default function DashboardPage() {
                 Verify token on server
               </button>
                */}
-              {Boolean(verifyResult) && (
+              {/* {Boolean(verifyResult) && (
                 <details className="w-full">
                   <summary className="mt-6 font-bold uppercase text-sm text-gray-600">
                     Server verify result
@@ -107,7 +107,7 @@ export default function DashboardPage() {
                     {JSON.stringify(verifyResult, null, 2)}
                   </pre>
                 </details>
-              )}
+              )} */}
             <ChatWindow
               endpoint="api/chat"
               emoji="🤖"

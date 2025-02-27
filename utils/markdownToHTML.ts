@@ -6,7 +6,7 @@ interface MarkedOptions {
   breaks: boolean;
   headerIds: boolean;
   mangle: false;
-  highlight?: (code: string, lang: string) => string;
+  highlight?: (code: string) => string;
 }
 
 // Configure marked options
@@ -15,7 +15,7 @@ const markedOptions: MarkedOptions = {
   breaks: true, // Convert \n to <br>
   headerIds: true, // Add ids to headers
   mangle: false, // Don't escape HTML
-  highlight: function (code: string, lang: string): string {
+  highlight: function (code: string): string {
     // You can add syntax highlighting here if needed
     return code;
   },

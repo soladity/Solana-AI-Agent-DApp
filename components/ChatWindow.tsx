@@ -134,12 +134,12 @@ export function ChatWindow(props: {
 						id: (messagesWithUserReply.length + i / 2).toString(),
 						role: "system" as const,
 						content: JSON.stringify({
-							action: aiMessage.tool_calls?.[0],
-							observation: toolMessage.content,
+							action: aiMessage?.tool_calls?.[0],
+							observation: toolMessage?.content,
 						}),
 					});
 				}
-				const newMessages = messagesWithUserReply;
+				const newMessages = messagesWithUserReply as any;
 				for (const message of intermediateStepMessages) {
 					newMessages.push(message);
 					setMessages([...newMessages]);
@@ -151,7 +151,7 @@ export function ChatWindow(props: {
 					...newMessages,
 					{
 						id: newMessages.length.toString(),
-						content: responseMessages[responseMessages.length - 1].content,
+						content: responseMessages[responseMessages.length - 1]?.content,
 						role: "assistant",
 					},
 				]);
