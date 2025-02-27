@@ -39,14 +39,15 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login · Privy</title>
+        <title>Login · Solana AI Agent</title>
       </Head>
 
       <main className="flex min-h-screen min-w-full">
         <div className="flex bg-privy-light-blue flex-1 p-6 justify-center items-center">
           <div>
             <div>
-              <Portal style={{ maxWidth: "100%", height: "auto" }} />
+              Login and Interact with Solana AI Agent
+              {/* <Portal style={{ maxWidth: "100%", height: "auto" }} /> */}
             </div>
             <div className="mt-6 flex justify-center text-center">
               <button
