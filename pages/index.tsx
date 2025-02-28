@@ -2,6 +2,7 @@ import { useLogin } from "@privy-io/react-auth";
 import { PrivyClient } from "@privy-io/server-auth";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -38,22 +39,21 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login · Solana AI Agent</title>
+        <title>Login · Suppply next</title>
       </Head>
 
       <main className="flex min-h-screen min-w-full">
         <div className="flex bg-privy-light-blue flex-1 p-6 justify-center items-center">
           <div>
-            <div>
-              Login and Interact with Solana AI Agent
-              {/* <Portal style={{ maxWidth: "100%", height: "auto" }} /> */}
+            <div className="flex flex-row justify-center items-center">
+              <Image width={250} height={130} src="/images/SupplyNext-Logo-Full-flat.png" style={{ maxWidth: "100%", height: "auto" }} alt="Logo" />
             </div>
             <div className="mt-6 flex justify-center text-center">
               <button
-                className="bg-violet-600 hover:bg-violet-700 py-3 px-6 text-white rounded-lg"
+                className="bg-green-600 hover:bg-green-700 py-3 px-6 text-white rounded-lg"
                 onClick={login}
               >
-                Log in
+                Log in to interact with AI Agent
               </button>
             </div>
           </div>
