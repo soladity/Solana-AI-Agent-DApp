@@ -10,6 +10,7 @@ import type { FormEvent } from "react";
 
 import { ChatMessageBubble } from "./ChatMessageBubble";
 import { IntermediateStep } from "./IntermediateStep";
+import { getAccessToken } from "@privy-io/react-auth";
 
 export function ChatWindow(props: {
 	endpoint: string;
@@ -104,12 +105,17 @@ export function ChatWindow(props: {
 				role: "user",
 			});
 			setMessages(messagesWithUserReply);
+			const accessToken = await getAccessToken();
+			console.log(accessToken);
 			const response = await fetch(endpoint, {
 				method: "POST",
 				body: JSON.stringify({
 					messages: messagesWithUserReply,
 					show_intermediate_steps: true,
 				}),
+				headers: {
+					...(accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined),
+				},
 			});
 			const json = await response.json();
 			setIntermediateStepsLoading(false);
