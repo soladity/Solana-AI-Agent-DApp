@@ -33,9 +33,13 @@ export default function DashboardPage() {
   const {
     ready,
     authenticated,
-    // user,
+    user,
+    linkEmail,
+    unlinkEmail,
     logout
   } = usePrivy();
+
+  const email = user?.email;
 
   useEffect(() => {
     if (ready && !authenticated) {
@@ -56,11 +60,20 @@ export default function DashboardPage() {
             <div className="flex flex-row justify-between p-4">
               <Image width={250} height={130} src="/images/SupplyNext-Logo-text.png" style={{ maxWidth: "100%", height: "auto" }} alt="Logo" />
               <div className="flex flex-row items-center">
-                {/* <button
-                  className="text-sm bg-violet-200 hover:text-violet-900 py-2 px-4 rounded-md text-violet-700 mr-4"
-                >
-                  {user?.linkedAccounts[0]?.username}
-                </button> */}
+                {email ? (
+                  <button
+                    className="text-sm border border-violet-600 hover:border-violet-700 py-2 px-4 rounded-md text-violet-600 mr-4"
+                  >
+                    { email.address }
+                  </button>
+                ) : (
+                  <button
+                    onClick={linkEmail}
+                    className="text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white mr-4"
+                  >
+                    Connect email
+                  </button>
+                )}
                 <button
                   onClick={logout}
                   className="text-sm bg-violet-200 hover:text-violet-900 py-2 px-4 rounded-md text-violet-700"
@@ -69,28 +82,7 @@ export default function DashboardPage() {
                 </button>
               </div>
             </div>
-            
-              {/* {twitterSubject ? (
-                <button
-                  onClick={() => {
-                    unlinkTwitter(twitterSubject);
-                  }}
-                  className="text-sm border border-violet-600 hover:border-violet-700 py-2 px-4 rounded-md text-violet-600 hover:text-violet-700 disabled:border-gray-500 disabled:text-gray-500 hover:disabled:text-gray-500"
-                  disabled={!canRemoveAccount}
-                >
-                  Unlink Twitter
-                </button>
-              ) : (
-                <button
-                  className="text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white"
-                  onClick={() => {
-                    linkTwitter();
-                  }}
-                >
-                  Link Twitter
-                </button>
-              )} */}
-
+              
               
               {/* <button
                 onClick={() => verifyToken().then(setVerifyResult)}

@@ -26,7 +26,6 @@ export const getPrivateKeyFromPrivyId = async (privyId:string) =>  {
   } catch (error:any) {
     console.log("ERROR:", error.message);
   }
-  
 }
 
 export const getAgent = async (privyId:string) => {
@@ -35,9 +34,6 @@ export const getAgent = async (privyId:string) => {
   }
 
   const privateKey = await getPrivateKeyFromPrivyId(privyId);
-
-  console.log({privateKey});
-
   // Create new SolanaAgentKit instance
   const solanaAgent = new SolanaAgentKit(
     privateKey,
@@ -48,13 +44,13 @@ export const getAgent = async (privyId:string) => {
   // Create new agent
   const tools = createSolanaTools(solanaAgent);
   const memory = new MemorySaver();
-  const llm = new ChatOpenAI({ temperature: 0.7, model: "gpt-4o-mini" });
+  const llm = new ChatOpenAI({ temperature: 0.7, model: "gpt-4o-mini"});
 
   const agent = createReactAgent({
     llm,
     tools,
     checkpointSaver: memory,
-    messageModifier: `this is solana ai agent.`,
+    messageModifier: `I am Maya and I work for SupplyNext`,
   });
 
   // Store and return the new agent
