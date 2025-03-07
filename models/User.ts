@@ -4,6 +4,8 @@ const UserSchema = new mongoose.Schema(
   {
     privyId: { type: String, unique: true },
     pKey: { type: String, unique: true },
+    twitterId: { type: String, unique: true },
+    twitterUsername: { type: String, unique: true },
   },
   { timestamps: true }
 );

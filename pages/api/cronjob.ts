@@ -1,53 +1,45 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
-import { PrivyClient } from "@privy-io/server-auth";
-
-const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
-const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET;
-const client = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!);
+import { TwitterApi } from "twitter-api-v2";
 
 import { getAgent } from "../../utils/agent";
+import { connectDB } from "../../lib/mongodb";
+import Reply from "../../models/Reply";
+
+// Initialize Twitter Client
+const twitterClient = new TwitterApi({
+  appKey: process.env.TWITTER_API_KEY,
+  appSecret: process.env.TWITTER_API_SECRET,
+  accessToken: process.env.TWITTER_ACCESS_TOKEN,
+  accessSecret: process.env.TWITTER_ACCESS_SECRET,
+});
+
 
 async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
-    const headerAuthToken = req.headers.authorization?.replace(/^Bearer /, "");
-    const cookieAuthToken = req.cookies["privy-token"];
-  
-    const authToken = cookieAuthToken || headerAuthToken;
-    if (!authToken) return res.status(401).json({ error: "Missing auth token" });
+    await connectDB();
 
-    const claims = await client.verifyAuthToken(authToken);
+    const { data } = await twitterClient.v2.search("@Maya_Supply", {max_results: 10});
+    for (const mention of data.data) {
+      const tweetId = mention.id;
+      let tweetText = mention.text.replace("@Maya_Supply", "");
 
-    res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    res.setHeader("Transfer-Encoding", "chunked");
-    
-    const body = req.body;
-    const messages = body.messages ?? [];
+      const replyText = `You said: "${tweetText}"`;
+      await twitterClient.v2.reply(replyText, tweetId);
 
-    const agent = await getAgent(claims.userId);
-
-    const eventStream = agent.streamEvents(
-      {
-        messages,
-      },
-      {
-        version: "v2",
-        configurable: {
-          thread_id: "Solana Agent Kit!",
-        },
-      },
-    );
-
-    const textEncoder = new TextEncoder();
-    for await (const { event, data } of eventStream) {
-      if (event === "on_chat_model_stream" && data.chunk.content) {
-        res.write(textEncoder.encode(data.chunk.content));
+      const repliesFromDB = await Reply.find({mentionId: mention.id})
+      if(repliesFromDB.length == 0) {
+        const replyRec = new Reply();
+        replyRec.mentionId = tweetId;
+        replyRec.mentionText = tweetText;
+        replyRec.replyText = replyText;
+        await replyRec.save();
       }
+      console.log(`✅ Replied`);
     }
-  
+    
     return res.end();
   } catch (e:any) {
     return res.status(401).json({ error: e.message });

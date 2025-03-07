@@ -8,7 +8,7 @@ import { Keypair } from "@solana/web3.js";
 import bs58 from "bs58";
 const agents = new Map(); // Stores agents by privy id
 
-export const getPrivateKeyFromPrivyId = async (privyId:string) =>  {
+export const getPrivateKeyFromPrivyId = async (privyId:string, twitterId:string, twitterUsername:string) =>  {
   try {
     await connectDB();
     const user = await User.find({privyId});
@@ -19,6 +19,8 @@ export const getPrivateKeyFromPrivyId = async (privyId:string) =>  {
       const newUser = new User();
       newUser.privyId = privyId;
       newUser.pKey = privateKeyString;
+      newUser.twitterId = twitterId;
+      newUser.twitterUsername = twitterUsername;
       await newUser.save();
       return privateKeyString;
     }
@@ -28,12 +30,12 @@ export const getPrivateKeyFromPrivyId = async (privyId:string) =>  {
   }
 }
 
-export const getAgent = async (privyId:string) => {
+export const getAgent = async (privyId:string, twitterId:string, twitterUsername:string) => {
   if (agents.has(privyId)) {
-    return agents.get(privyId); // Return existing agent
+    return agents.get(getPrivateKeyFromPrivyId); // Return existing agent
   }
 
-  const privateKey = await getPrivateKeyFromPrivyId(privyId);
+  const privateKey = await getPrivateKeyFromPrivyId(privyId, twitterId, twitterUsername);
   // Create new SolanaAgentKit instance
   const solanaAgent = new SolanaAgentKit(
     privateKey,
