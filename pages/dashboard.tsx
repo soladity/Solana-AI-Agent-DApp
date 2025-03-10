@@ -35,7 +35,6 @@ export default function DashboardPage() {
     authenticated,
     user,
     linkEmail,
-    unlinkEmail,
     logout
   } = usePrivy();
 

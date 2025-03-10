@@ -1,14 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { PrivyClient } from "@privy-io/server-auth";
+import { getAgentFromPrivyId } from "../../utils/agent";
 
 const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
 const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET;
 const client = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!);
-//const server = new PrivyServer(PRIVY_APP_ID!, PRIVY_APP_SECRET!);
 
-
-import { getAgent } from "../../utils/agent";
 
 async function handler(
   req: NextApiRequest,
@@ -30,7 +28,7 @@ async function handler(
     const body = req.body;
     const messages = body.messages ?? [];
 
-    const agent = await getAgent(claims.userId, user.twitter?.subject as string, user.twitter?.username as string);
+    const agent = await getAgentFromPrivyId(claims.userId, user.twitter?.subject as string);
 
     const eventStream = agent.streamEvents(
       {

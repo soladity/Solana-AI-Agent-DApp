@@ -5,6 +5,6 @@ const replySchema = new mongoose.Schema({
   replyText: { type: String, required: true }
 });
 
-const Reply = mongoose.model("Reply", replySchema);
+const Reply = mongoose.models.Reply || mongoose.model("Reply", replySchema);
 
 export default Reply as any;
